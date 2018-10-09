@@ -12,11 +12,15 @@ package PROJECT;
  */
 public class Singleton {
    private static Singleton instance = null;
-   public ErrorList error = new ErrorList();
-   public Helpers helper = new Helpers();
-   public Tokens tokens = new Tokens();
+   public ErrorList error;
+   public Helpers helper;
+   public Tokens tokens;
    protected Singleton() {
+       error = new ErrorList();
+       helper = new Helpers();
+       tokens = new Tokens();
    }
+   
    public static Singleton getInstance() {
       if(instance == null) {
          instance = new Singleton();

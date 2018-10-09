@@ -23,13 +23,26 @@ public class Tokens {
     private static final List<HashMap> TokensList =  new ArrayList<>();
     public Tokens(){
         
+        TokensList.add(CD());
+        TokensList.add(CD2());
+        TokensList.add(CD3());
+        TokensList.add(CD4());
         TokensList.add(CLS());
+        TokensList.add(RD());
         TokensList.add(VER());
+        TokensList.add(DIR());
         TokensList.add(DATE());
         TokensList.add(TIME());
         TokensList.add(EXIT());
         TokensList.add(MD());
+        TokensList.add(PROMPT());
         TokensList.add(SPACE());
+        TokensList.add(IDENTIFICADOR());
+        TokensList.add(PROMPTP());
+        TokensList.add(POINTS());
+        TokensList.add(SLASH());
+        TokensList.add(BACKSLASH());
+
     }
     
     private HashMap SPACE(){
@@ -41,11 +54,20 @@ public class Tokens {
         space.put("SINGULAR",true);
         return space;
     }
+    private HashMap PROMPTP(){
+        HashMap space = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        space.put("TOKEN","[\\$][pg]{1}");
+        space.put("ID",8);
+        space.put("TIPO","PROMPTPARAM");
+        space.put("SINGULAR",true);
+        return space;
+    }
     private HashMap IDENTIFICADOR(){
         HashMap space = new HashMap(); 
         //LinkedList Cls = new LinkedList();
         space.put("TOKEN","[a-zA-Z][a-zA-Z0-9_]*");
-        space.put("ID",7);
+        space.put("ID",9);
         space.put("TIPO","IDENTIFICADOR");
         space.put("SINGULAR",true);
         return space;
@@ -110,6 +132,96 @@ public class Tokens {
         return Md;
     }
     
+    private HashMap PROMPT(){
+        HashMap p = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        p.put("TOKEN","PROMPT");
+        p.put("ID",8);
+        p.put("TIPO","ESPECIFICO");
+        p.put("SINGULAR",false);
+        return p;
+    }
+    private HashMap DIR(){
+        HashMap dir = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        dir.put("TOKEN","DIR");
+        dir.put("ID",10);
+        dir.put("TIPO","ESPECIFICO");
+        dir.put("SINGULAR",false);
+        return dir;
+    }
+    private HashMap CD(){
+        HashMap dir = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        dir.put("TOKEN","CD");
+        dir.put("ID",11);
+        dir.put("TIPO","ESPECIFICO");
+        dir.put("SINGULAR",false);
+        return dir;
+    }
+    private HashMap CD2(){
+        HashMap dir = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        dir.put("TOKEN","CD..");
+        dir.put("ID",11);
+        dir.put("TIPO","ESPECIFICO");
+        dir.put("SINGULAR",true);
+        return dir;
+    }
+    private HashMap CD3(){
+        HashMap dir = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        dir.put("TOKEN","CD/");
+        dir.put("ID",11);
+        dir.put("TIPO","ESPECIFICO");
+        dir.put("SINGULAR",true);
+        return dir;
+    }
+    private HashMap CD4(){
+        HashMap dir = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        dir.put("TOKEN","CD\\\\");
+        dir.put("ID",11);
+        dir.put("TIPO","ESPECIFICO");
+        dir.put("SINGULAR",true);
+        return dir;
+    }
+    private HashMap POINTS(){
+        HashMap point = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        point.put("TOKEN","..");
+        point.put("ID",12);
+        point.put("TIPO","SECUNDARIO");
+        point.put("SINGULAR",true);
+        return point;
+    }
+    private HashMap BACKSLASH(){
+        HashMap s = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        s.put("TOKEN","[\\\\]");
+        s.put("ID",13);
+        s.put("TIPO","SECUNDARIO");
+        s.put("SINGULAR",true);
+        return s;
+    }
+     private HashMap SLASH(){
+        HashMap s = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        s.put("TOKEN","/");
+        s.put("ID",15);
+        s.put("TIPO","SECUNDARIO");
+        s.put("SINGULAR",true);
+        return s;
+    }
+    private HashMap RD(){
+        HashMap s = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        s.put("TOKEN","RD");
+        s.put("ID",14);
+        s.put("TIPO","ESPECIFICO");
+        s.put("SINGULAR",false);
+        return s;
+    }
     /*
     *Devuelve la lista de tokens
     */
@@ -122,17 +234,25 @@ public class Tokens {
     */
     public String Match(String tobeMatched){
         for(int i = 0; i<TokensList.size(); i++){
-            if(tobeMatched.equalsIgnoreCase(TokensList.get(i).get("TOKEN").toString()) 
+            if(tobeMatched.matches(TokensList.get(i).get("TOKEN").toString()) 
+                    && TokensList.get(i).get("TIPO") == "PROMPTPARAM"){
+                return "PROMPTPARAM";
+            }
+            if(tobeMatched.matches(TokensList.get(i).get("TOKEN").toString()) 
                     && TokensList.get(i).get("TIPO") == "ESPECIFICO"){
                 return "ESPECIFICO";
             }
-            if(tobeMatched.equalsIgnoreCase(TokensList.get(i).get("TOKEN").toString()) 
+            if(tobeMatched.matches(TokensList.get(i).get("TOKEN").toString()) 
                     && TokensList.get(i).get("TIPO") == "ESPACIO"){
                 return "ESPACIO";
             }
             if(tobeMatched.matches(TokensList.get(i).get("TOKEN").toString()) 
                     && TokensList.get(i).get("TIPO") == "IDENTIFICADOR"){
                 return "IDENTIFICADOR";
+            }
+            if(tobeMatched.matches(TokensList.get(i).get("TOKEN").toString()) 
+                    && TokensList.get(i).get("TIPO") == "SECUNDARIO"){
+                return "SECUNDARIO";
             }
         }
         return "NOMATCH";

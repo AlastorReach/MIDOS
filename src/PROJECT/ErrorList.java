@@ -22,16 +22,21 @@ public class ErrorList{
     *Llena el diccionario con una lista de errores y sus respectivas llaves
     */
     private void fillErrorList(){
-        errorList.put("character","001 El nombre del directorio debe empezar con una letra");
-        errorList.put("especial","002 El nombre del directorio no permite caracteres especiales");
+        errorList.put("character","001 El nombre del directorio debe empezar con una letra.");
+        errorList.put("especial","002 El nombre del directorio no permite caracteres especiales.");
         errorList.put("errorName","003 El nombre del directorio no es válido: ");
-        errorList.put("length","004 El nombre del directorio permite como máximo un largo de 8 caracteres");
-        errorList.put("noCommand","005 no se reconoce como un comando interno o externo");
+        errorList.put("length","004 El nombre del directorio permite como máximo un largo de 8 caracteres.");
+        errorList.put("noCommand","005 no se reconoce como un comando interno o externo.");
         errorList.put("singleCommand","006 Comando simple");
         errorList.put("directoryExists","007 Ya existe el subdirectorio o el archivo "); 
         errorList.put("noMemory","008 Memoria insuficiente, disponible: ");
         errorList.put("sintaxis","009 La sintaxis del comando no es correcta.");
-        errorList.put("capacity","010 Capacidad de creación de directorios al máximo");
+        errorList.put("capacity","010 Capacidad de creación de directorios al máximo.");
+        errorList.put("sameNameAsParent","011 El nombre del directorio coincide con el directorio que lo contiene.");
+        errorList.put("noRouteFound","012 El sistema no puede encontrar la ruta especificada");
+        errorList.put("isFile","013 No se puede accesar archivos, sólo directorios");
+        errorList.put("noEmpty","014 El directorio no está vacío");
+        errorList.put("noValid","015 Identificador no válido");
     }
     
     /*Imprime un error en la lista

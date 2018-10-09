@@ -23,19 +23,23 @@ public class Sintax {
     public void analizador(List<String> input) throws IOException{
         List<String> commands = new ArrayList();
         int contador = 0;
+        boolean validParam = true;
+        String noValidCommand = "";
         do{
-            String match = Singleton.getInstance().tokens.Match(input.get(contador));
+            String match = Singleton.getInstance().tokens.Match(input.get(contador).toUpperCase());
             switch(match){
                 case "ESPECIFICO": commands.add(input.get(contador));input.remove(contador);contador = 0;break;
                 case "ESPACIO"   : input.remove(contador);contador = 0;break;
                 case "IDENTIFICADOR": commands.add(input.get(contador));input.remove(contador);contador = 0;break;
-                default: commands.add(input.get(contador));input.remove(contador);contador = 0;break;
+                case "PROMPTPARAM": commands.add(input.get(contador));input.remove(contador);contador = 0;break;
+                case "SECUNDARIO": commands.add(input.get(contador));input.remove(contador);contador = 0;break;
+                default: validParam = false;noValidCommand = input.get(contador);  contador++;  break;
             }
         }while(contador < input.size());
 
         //luego envia las palabras a este método mendiante una Lista
         //Minimo debe llegar una letra, sino no deberia haber entrado aquí
-        Singleton.getInstance().helper.verifying(commands);
+        Singleton.getInstance().helper.verifying(commands, validParam, noValidCommand);
 
     }
 }

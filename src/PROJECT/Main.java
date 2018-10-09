@@ -19,7 +19,13 @@ public class Main {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException{
-        Singleton.getInstance().helper.init();           
+       try{
+        Singleton.getInstance().helper.init();  
+       }
+       catch(Exception e){
+           System.out.println("Error de ejecución: " + e.getMessage());
+           System.in.read();
+       }
     }
     
 }
