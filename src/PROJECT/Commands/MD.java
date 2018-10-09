@@ -20,16 +20,24 @@ public final class MD {
     private MD(){
         
     }
-    /*
+    /*y
     *Crea nuevos directorios a partir del directorio raiz MIDOS
     */
     public static void createDirectory(List<String> parts, List<String>directories, String actualPath, String actualParent,
-            int freeMemory, int counter) throws FileNotFoundException, IOException{
-        if(DirectoryNameIsValid(parts, actualParent)){
-            List<String> folders = new LinkedList<>(Arrays.asList(parts.get(1).split("\\\\")));
+            int freeMemory, int counter, String noValidCommand) throws FileNotFoundException, IOException{
+        if(!noValidCommand.isEmpty()){
+            DirectoryNameIsOk(parts, actualParent, noValidCommand);
+            return;
+        }
+        if(parts.size() > 2){
+            Singleton.getInstance().error.printError("space", "" ,0);
+            return;
+        }
+        if(DirectoryNameIsValid(parts, actualParent, noValidCommand)){
+            List<String> folders = new LinkedList<>(Arrays.asList(parts.get(1).split(" ")));
             //si ya hay directorios guardados
             if(directories.size()>0){
-               if(Singleton.getInstance().helper.directoryCount(actualPath, counter) <= 7){
+               if(Singleton.getInstance().helper.directoryCount(actualPath) <= 7){
                    int index = actualPath.lastIndexOf("\\")+1;
                    String parentName = actualPath.substring(index);
                    if(parentName.equals(parts.get(1))){
@@ -58,8 +66,8 @@ public final class MD {
             }
         }         
     }
-    private static boolean DirectoryNameIsValid(List<String> parts, String actualParent){
-        if(!DirectoryNameIsOk(parts, actualParent)){
+    private static boolean DirectoryNameIsValid(List<String> parts, String actualParent, String noValidCommand){
+        if(!DirectoryNameIsOk(parts, actualParent, noValidCommand)){
             return false;
         }
         return DirectoryLengthIsOk(parts);
@@ -67,9 +75,15 @@ public final class MD {
     /*
     *Revisa el nombre del directorio que se desea crear
     */
-    private static boolean DirectoryNameIsOk(List<String> parts, String actualParent){
+    private static boolean DirectoryNameIsOk(List<String> parts, String actualParent, String noValidCommand){
+        if(!noValidCommand.isEmpty()){
+            if(noValidCommand.matches("[a-zA-Z][a-zA-Z0-9_]*") != true){
+                Singleton.getInstance().error.printError("errorName", noValidCommand ,0);
+                return false;
+            }
+        }
         String[] folders = null;
-        if(parts.size() < 2){
+        if(parts.size() != 2){
             Singleton.getInstance().error.printError("sintaxis", "", 0);
             return false;
         }

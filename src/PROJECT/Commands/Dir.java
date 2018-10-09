@@ -27,12 +27,12 @@ public final class Dir {
             int iniName = folders[i].indexOf("<NAME>") + 6;
             int endName = folders[i].indexOf("</NAME>");
             String dirOrFile = folders[i].substring(iniName, endName);
-            if(folders[i].contains("D")){
+            if(folders[i].contains("<DIR>")){
                 System.out.println("<DIR> " + dirOrFile); 
                 folderCount++;
                 continue;
             }
-            if(directories.get(i).contains("F")){
+            if(directories.get(i).contains("<FILE>")){
                 System.out.println("<FILE> " + dirOrFile); 
                 fileCount++;
             }

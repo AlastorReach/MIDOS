@@ -18,11 +18,17 @@ public final class RD {
         
     }
     public static void RD(List<String> parts, int counter, List<String>directories, String actualPath){
+        //si el comando no posee parámetro de búsqueda
+        if(parts.size() == 1){
+            Singleton.getInstance().error.printError("sintaxis", "", 0);
+            return;
+        }
         RemoveDirectoryOrFile(parts.get(1), counter, directories,actualPath);
     }
     private static void RemoveDirectoryOrFile(String dir, int counter, List<String>directories, String actualPath){
         counter = 0;
         boolean notFound = true;
+        String pathToBeSaved = actualPath + "\\" + dir;
          String dirOrFile = "";
          String dirOrFileName = "";
         List<String>dirs = new ArrayList();
@@ -38,8 +44,9 @@ public final class RD {
                 //si el directorio o archivo que se quiere borrar existe en la lista guardada
                if((actualPath +"\\" + dir).equals(dirOrFile + dirOrFileName)){
                    //si no tiene directorios o archivos hijos
-                    if(Singleton.getInstance().helper.directoryCount(dirOrFile + dirOrFileName, counter) == 0){ 
+                    if(Singleton.getInstance().helper.directoryCount(dirOrFile + dirOrFileName) == 0){ 
                         directories.remove(i);
+                        Singleton.getInstance().helper.SetFreeMemory(8);
                         notFound = false;
                     }
                     //si el directorio que se quiere eliminar tiene hijos
@@ -51,7 +58,7 @@ public final class RD {
             }
         }
         if(notFound){
-                Singleton.getInstance().error.printError("noRouteFound", "" ,0);
+                Singleton.getInstance().error.printError("noRouteFound", pathToBeSaved ,0);
         }
 
     }

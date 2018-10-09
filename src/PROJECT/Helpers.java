@@ -30,9 +30,15 @@ public class Helpers {
     //
     //atributos
     private static int counter = 0;
-    private static int freeMemory = 256;
+    private int freeMemory = 256;
+    public void SetFreeMemory(int m){
+        this.freeMemory = freeMemory + m;
+    }
     private int childCounter = 0;
     private String actualPrompt = "$p$g";
+    public void SetActualPrompt(String p){
+        this.actualPrompt = p;
+    }
     private String actualPath = "M:";
     public void SetActualPath(String p){
         this.actualPath = p;
@@ -91,9 +97,9 @@ public class Helpers {
                 case "CLS":     CLS.clrscr();break;
                 case "EXIT":    Exit.exit(br,input);break;
                 case "VER":     Ver.showVersion(parts, freeMemory);break;
-                case "DATE":    Date.showDate();break;
-                case "MD":      MD.createDirectory(parts, directories,actualPath, actualParent,freeMemory, counter);break;
-                case "TIME":    Time.showTime();break;
+                case "DATE":    Date.showDate(parts, noValidCommand);break;
+                case "MD":      MD.createDirectory(parts, directories,actualPath, actualParent,freeMemory, counter, noValidCommand);break;
+                case "TIME":    Time.showTime(parts, noValidCommand);break;
                 case "DIR":     Dir.DIR(actualPath, counter, directories, freeMemory);break;
                 case "CD": 
                 case "CD..":
@@ -287,9 +293,9 @@ public class Helpers {
         return dirs;
     }
     
-    public int directoryCount(String path, int counter){
-            String[] folders = GetDataFromPath(path).toArray(new String[counter]);
-            return folders.length;    
+    public int directoryCount(String path){
+            List<String> folders = GetDataFromPath(path);
+            return folders.size();    
     }
     
 }

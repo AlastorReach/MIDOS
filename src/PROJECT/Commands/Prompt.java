@@ -40,21 +40,25 @@ public final class Prompt {
     private static void PromptP(String prompt, String actualPath, String SP, String actualPrompt){
         prompt = actualPath + SP;
         actualPrompt = "$p";
+        Singleton.getInstance().helper.SetActualPrompt(actualPrompt);
         Singleton.getInstance().helper.SetPrompt(prompt);
     }
     private static void PromptG(String prompt, String GP, String actualPrompt){
         prompt = GP;
         actualPrompt = "$g";
+        Singleton.getInstance().helper.SetActualPrompt(actualPrompt);
         Singleton.getInstance().helper.SetPrompt(prompt);
     }
     private static void PromptPG(String prompt, String actualPath, String GP,String SP, String actualPrompt){
         prompt = actualPath + SP + GP;
         actualPrompt = "$p$g";
+        Singleton.getInstance().helper.SetActualPrompt(actualPrompt);
         Singleton.getInstance().helper.SetPrompt(prompt);
     }
     private static void PromptGP(String prompt, String actualPath, String GP,String SP, String actualPrompt){
         prompt = GP + actualPath + SP ;
         actualPrompt = "$g$p";
+        Singleton.getInstance().helper.SetActualPrompt(actualPrompt);
         Singleton.getInstance().helper.SetPrompt(prompt);
     }
 }

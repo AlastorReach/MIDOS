@@ -22,21 +22,21 @@ public class ErrorList{
     *Llena el diccionario con una lista de errores y sus respectivas llaves
     */
     private void fillErrorList(){
-        errorList.put("character","001 El nombre del directorio debe empezar con una letra.");
-        errorList.put("especial","002 El nombre del directorio no permite caracteres especiales.");
-        errorList.put("errorName","003 El nombre del directorio no es válido: ");
-        errorList.put("length","004 El nombre del directorio permite como máximo un largo de 8 caracteres.");
-        errorList.put("noCommand","005 no se reconoce como un comando interno o externo.");
-        errorList.put("singleCommand","006 Comando simple");
-        errorList.put("directoryExists","007 Ya existe el subdirectorio o el archivo "); 
-        errorList.put("noMemory","008 Memoria insuficiente, disponible: ");
-        errorList.put("sintaxis","009 La sintaxis del comando no es correcta.");
-        errorList.put("capacity","010 Capacidad de creación de directorios al máximo.");
-        errorList.put("sameNameAsParent","011 El nombre del directorio coincide con el directorio que lo contiene.");
-        errorList.put("noRouteFound","012 El sistema no puede encontrar la ruta especificada");
-        errorList.put("isFile","013 No se puede accesar archivos, sólo directorios");
-        errorList.put("noEmpty","014 El directorio no está vacío");
-        errorList.put("noValid","015 Identificador no válido");
+        errorList.put("errorName","001 El nombre del directorio no es válido: ");
+        errorList.put("length","002 El nombre del directorio permite como máximo un largo de 8 caracteres.");
+        errorList.put("noCommand","003 no se reconoce como un comando interno o externo.");
+        errorList.put("singleCommand","004 El comando no utiliza parámetros.");
+        errorList.put("directoryExists","005 Ya existe el subdirectorio o el archivo "); 
+        errorList.put("noMemory","006 Memoria insuficiente, disponible: ");
+        errorList.put("sintaxis","007 La sintaxis del comando no es correcta.");
+        errorList.put("capacity","008 Capacidad de creación de directorios al máximo.");
+        errorList.put("sameNameAsParent","009 El nombre del directorio coincide con el directorio que lo contiene.");
+        errorList.put("noRouteFound","010 El sistema no puede encontrar la ruta especificada: ");
+        errorList.put("isFile","011 No se puede accesar archivos, sólo directorios.");
+        errorList.put("noEmpty","012 El directorio no está vacío.");
+        errorList.put("noValid","013 Identificador no válido.");
+        errorList.put("space","014 Nombre de carpeta no puede tener espacios en blanco.");
+        
     }
     
     /*Imprime un error en la lista
@@ -59,13 +59,13 @@ public class ErrorList{
     /*
     *Aplica un substring para imprimir el número del error
     */
-    public String printErrorNumber(String error){
+    private String printErrorNumber(String error){
         return errorList.get(error).substring(0,3);
     }
     /*
     *Aplica un substring para imprimir el cuerpo del error
     */
-    public String printErrorBody(String error){
+    private String printErrorBody(String error){
         return errorList.get(error).substring(3);
     }
 

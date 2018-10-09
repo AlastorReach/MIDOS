@@ -6,8 +6,10 @@
 package PROJECT.Commands;
 
 import static PROJECT.Helpers.createDateFormat;
+import PROJECT.Singleton;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -20,7 +22,11 @@ public final class Time {
      /*
     *Muestra la hora actual al usuario
     */
-    public static void showTime(){
+    public static void showTime(List<String> parts, String noValidCommand){
+        if(parts.size() > 1 || !noValidCommand.isEmpty()){
+            Singleton.getInstance().error.printError("singleCommand", "", 0);
+            return;
+        }
         SimpleDateFormat format = createDateFormat("HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         String time = format.format(cal.getTime());
