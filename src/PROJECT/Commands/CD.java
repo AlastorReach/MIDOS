@@ -5,6 +5,9 @@
  */
 package PROJECT.Commands;
 
+import PROJECT.Arbol;
+import PROJECT.Archivo;
+import PROJECT.Carpeta;
 import PROJECT.Singleton;
 import java.util.List;
 
@@ -77,6 +80,71 @@ public final class CD {
                         case"$p": prompt = actualPath + SP;Singleton.getInstance().helper.SetPrompt(prompt); break;
                         case"$g$p": prompt = GP + actualPath;Singleton.getInstance().helper.SetPrompt(prompt); break;
                         case"$p$g": prompt = actualPath + SP + GP;Singleton.getInstance().helper.SetPrompt(prompt); break;
+                        default: break;
+                    }
+    }
+    
+    public static void CD2(List<String> parts, Carpeta carpetaActual, String actualPrompt,
+            String prompt,String SP, String GP ) {
+        if(parts.get(1).equals("..")){
+            if(Singleton.getInstance().helper.getCarpetaActual().getNombre().equalsIgnoreCase("MIDOS")){
+                return;
+            }
+            carpetaActual = carpetaActual.getPadre();
+            Arbol.SetCarpetaActual(carpetaActual);
+            if(carpetaActual.getNombre().equalsIgnoreCase("MIDOS")){
+                Arbol.setRutaActual(carpetaActual.getRuta() + "M:");
+            }
+            else{
+                Arbol.setRutaActual(carpetaActual.getRuta() + carpetaActual.getNombre());
+            }
+            try{
+            //System.err.println("Carpeta padre es: " +carpetaActual.getPadre().getNombre());
+            SetPrompt(actualPrompt,prompt, SP, GP);
+            }
+            catch(NullPointerException e){
+                 Arbol.setRutaActual("M:\\");  
+            }
+            Singleton.getInstance().helper.SetCarpetaActual(carpetaActual);
+            return;
+        }
+        if(parts.get(1).equals("/")){
+            if(carpetaActual.getNombre().equalsIgnoreCase("MIDOS")){
+                return;
+            }
+           carpetaActual = Arbol.GetFirstLevel();
+           Arbol.SetCarpetaActual(carpetaActual);
+           Arbol.setRutaActual("M:\\");
+           return;
+        }
+        Object c = Arbol.getCarpetaActual(Arbol.getRutaActual() + "\\", parts.get(1));
+        if(c == null){
+            Singleton.getInstance().error.printError("noRouteFound", "" ,0);
+            return;
+        }
+        if(c instanceof Archivo){
+            Singleton.getInstance().error.printError("isFile", "" ,0);
+            return;
+        }
+        Arbol.setRutaActual(Arbol.getRutaActual() + "\\" + parts.get(1));
+        carpetaActual = (Carpeta)c;
+        Arbol.SetCarpetaActual(carpetaActual);
+        Singleton.getInstance().helper.SetCarpetaActual(carpetaActual);
+        try{
+        System.err.println("Carpeta padre es: " +carpetaActual.getPadre().getNombre());
+        }
+        catch(NullPointerException e){
+            System.err.println("Ocurrio la siguiente excepción: " + e.getMessage());
+        }
+        //Arbol.SetCarpetaActual((Carpeta)c);
+         SetPrompt(actualPrompt,prompt, SP, GP);
+    }
+    
+    private static void SetPrompt(String actualPrompt, String prompt, String SP, String GP){
+        switch(actualPrompt){
+                        case"$p": prompt = Arbol.getRutaActual() + SP;Singleton.getInstance().helper.SetPrompt(prompt); break;
+                        case"$g$p": prompt = GP + Arbol.getRutaActual();Singleton.getInstance().helper.SetPrompt(prompt); break;
+                        case"$p$g": prompt = Arbol.getRutaActual() + SP + GP;Singleton.getInstance().helper.SetPrompt(prompt); break;
                         default: break;
                     }
     }

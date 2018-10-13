@@ -18,6 +18,10 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.LinkedList;
 import PROJECT.Commands.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  *
@@ -29,12 +33,29 @@ public class Helpers {
     private static final String GP = ">";
     //
     //atributos
+    static Carpeta carpetaActual;
+    public void SetCarpetaActual(Carpeta c){
+        carpetaActual = c;
+    }
+    public Carpeta getCarpetaActual(){
+        return carpetaActual;
+    }
+    //public static String rutaActual = "M:\\";
+    private static String tab = "";
+    public void SetTab(String t){
+        tab = t;
+    }
     private static int counter = 0;
     private int freeMemory = 256;
-    public void SetFreeMemory(int m){
-        this.freeMemory = freeMemory + m;
+    public void SetFreeMemory(int m, String type){
+        switch(type){
+            case "add": this.freeMemory = freeMemory + m;break;
+            case "remove": this.freeMemory = freeMemory - m;break;
+            case "reset": this.freeMemory = 256 ;break;
+        }
+        
     }
-    private int childCounter = 0;
+ 
     private String actualPrompt = "$p$g";
     public void SetActualPrompt(String p){
         this.actualPrompt = p;
@@ -66,8 +87,9 @@ public class Helpers {
      * @throws IOException 
      * Inicia MIDOS
      */ 
-    public void init() throws IOException{
+    public void init() throws IOException, ClassNotFoundException{
         try{
+            Arbol.setRutaActual(actualPath);
             initMemoryData();
             Sintax sintax = new Sintax();
             System.out.print("MINGOSOFT ® MIDOS\n" +"© Copyright MINGOSOFT CORPORATION 2018\n" +
@@ -98,15 +120,21 @@ public class Helpers {
                 case "EXIT":    Exit.exit(br,input);break;
                 case "VER":     Ver.showVersion(parts, freeMemory);break;
                 case "DATE":    Date.showDate(parts, noValidCommand);break;
-                case "MD":      MD.createDirectory(parts, directories,actualPath, actualParent,freeMemory, counter, noValidCommand);break;
+                case "MD":      //MD.createDirectory(parts, directories,actualPath, actualParent,freeMemory, counter, noValidCommand);
+                                MD.createDirectory2(parts,carpetaActual, noValidCommand);
+                                 break;
                 case "TIME":    Time.showTime(parts, noValidCommand);break;
                 case "DIR":     Dir.DIR(actualPath, counter, directories, freeMemory);break;
                 case "CD": 
                 case "CD..":
                 case "CD/":
-                case "CD\\":    CD.CD(parts, actualPath,actualPrompt, prompt, SP, GP, actualParent, noValidCommand);break;
-                case "RD":      RD.RD(parts, counter, directories, actualPath);break;
-                case "PROMPT": Prompt.Prompt(parts, isValidParam, noValidCommand, prompt, actualPath, actualPrompt, SP, GP);break;
+                case "CD\\":   // CD.CD(parts, actualPath,actualPrompt, prompt, SP, GP, actualParent, noValidCommand);break;
+                                CD.CD2(parts, carpetaActual, actualPrompt,prompt,SP,GP);
+                                break;
+                case "RD":      //RD.RD(parts, counter, directories, actualPath);break;
+                                RD.RD2(parts);break;
+                case "PROMPT":  Prompt.Prompt(parts, isValidParam, noValidCommand, prompt, actualPath, actualPrompt, SP, GP);break;
+                case "TREE":    Tree.Tree(carpetaActual, tab);break;
                 default: Singleton.getInstance().error.printError("noCommand", parts.get(0), 1);
             }
         }
@@ -131,7 +159,7 @@ public class Helpers {
                 writer.write(Integer.toString(freeMemory));
                 writer.close();
             }
-            Files.write(fileTree, directories, Charset.forName("UTF-8"));
+            escribir();
             System.exit(0);
         }
         catch(IOException e){
@@ -174,8 +202,11 @@ public class Helpers {
     *Función que inicializa la lectura de los archivos @MIDOSFRE y @MIDOSTRE
     * se utiliza en el @init()
     */
-    private void initMemoryData() throws IOException{
+    private void initMemoryData() throws IOException, ClassNotFoundException{
+        Arbol arbol = new Arbol();
         initFreeMemoryData();
+        arbol.archivoLeerOCrear();
+        carpetaActual = arbol.getCarpeta();
         InitDirectoryTreeData();  
     }
     /*
@@ -246,6 +277,26 @@ public class Helpers {
         }
         return null;
     }
+    
+    public Carpeta loadTxtFile2() throws IOException, ClassNotFoundException{
+        try{
+            Carpeta c;
+            Path fileTree2 = Paths.get("C:\\MIDOSTREE.txt");
+            File f = new File(fileTree2.toString());
+            if(f.exists()){
+                ObjectInputStream file = new ObjectInputStream(new FileInputStream("C:\\MIDOSTREE.txt"));
+                c = (Carpeta) file.readObject();
+                file.close();
+                return c;
+            }
+            return null;
+        }
+        catch(IOException e){
+            System.out.println("Ocurrió la siguiente excepción " + e.getMessage()); 
+            System.in.read();
+        }
+        return null;
+    }
 
     private String SubString(List<String> l, int i, String initial, String end){
         int indexIni = l.get(i).indexOf(initial);
@@ -296,6 +347,22 @@ public class Helpers {
     public int directoryCount(String path){
             List<String> folders = GetDataFromPath(path);
             return folders.size();    
+    }
+    
+    public static void escribir()
+    {
+        try {
+            Arbol.GetFirstLevel();
+            //Objeto a guardar en archivo *.DAT
+            //Se crea un Stream para guardar archivo
+            ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("C:\\MIDOTREE.txt"));
+            //Se escribe el objeto en archivo
+            file.writeObject(carpetaActual);
+            //se cierra archivo
+            file.close();
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
     }
     
 }

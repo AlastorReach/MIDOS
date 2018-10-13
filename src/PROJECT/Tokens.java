@@ -35,6 +35,7 @@ public class Tokens {
         TokensList.add(TIME());
         TokensList.add(EXIT());
         TokensList.add(MD());
+        TokensList.add(TREE());
         TokensList.add(PROMPT());
         TokensList.add(SPACE());
         TokensList.add(IDENTIFICADOR());
@@ -221,6 +222,15 @@ public class Tokens {
         s.put("TIPO","ESPECIFICO");
         s.put("SINGULAR",false);
         return s;
+    }
+    private HashMap TREE(){
+        HashMap t = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        t.put("TOKEN","TREE");
+        t.put("ID",16);
+        t.put("TIPO","ESPECIFICO");
+        t.put("SINGULAR",true);
+        return t;
     }
     /*
     *Devuelve la lista de tokens

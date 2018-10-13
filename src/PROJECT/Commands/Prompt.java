@@ -5,6 +5,7 @@
  */
 package PROJECT.Commands;
 
+import PROJECT.Arbol;
 import PROJECT.Singleton;
 import java.util.List;
 
@@ -29,11 +30,11 @@ public final class Prompt {
             }
         }
         switch(parameters.toUpperCase()){
-            case "$P": PromptP(prompt, actualPath,SP, actualPrompt);break;
+            case "$P": PromptP(prompt, Arbol.getRutaActual(),SP, actualPrompt);break;
             case "$G": PromptG(prompt,GP, actualPrompt);break;
-            case "$P$G": PromptPG(prompt, actualPath,GP,SP, actualPrompt);break;
-            case "$G$P": PromptGP(prompt, actualPath,GP,SP, actualPrompt);break;
-            case "": PromptPG(prompt, actualPath,GP,SP, actualPrompt);break;
+            case "$P$G": PromptPG(prompt, Arbol.getRutaActual(),GP,SP, actualPrompt);break;
+            case "$G$P": PromptGP(prompt, Arbol.getRutaActual(),GP,SP, actualPrompt);break;
+            case "": PromptPG(prompt, Arbol.getRutaActual(),GP,SP, actualPrompt);break;
             default: Singleton.getInstance().error.printError("noCommand", parameters ,1);;break;
         }
     }
