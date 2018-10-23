@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  *
- * @author alast
+ * @author Josué Mora González
  */
 public final class CLS {
     private CLS(){

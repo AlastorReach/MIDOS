@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  *
- * @author alast
+ * @author Josué Mora González
  */
 public final class Exit {
     private Exit(){
@@ -19,6 +19,7 @@ public final class Exit {
     }
     /*
     *Termina la ejecución del programa MIDOS
+    Luego va y guarda en los archivos de texto, la información correspondiente a memoria y directorios
     */
      public static boolean exit(BufferedReader br, String input) throws IOException{
         System.out.println("¿Está seguro de salir de MIDOS?");

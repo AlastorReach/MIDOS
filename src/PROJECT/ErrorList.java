@@ -22,20 +22,27 @@ public class ErrorList{
     *Llena el diccionario con una lista de errores y sus respectivas llaves
     */
     private void fillErrorList(){
-        errorList.put("errorName","001 El nombre del directorio no es válido: ");
-        errorList.put("length","002 El nombre del directorio permite como máximo un largo de 8 caracteres.");
-        errorList.put("noCommand","003 no se reconoce como un comando interno o externo.");
-        errorList.put("singleCommand","004 El comando no utiliza parámetros.");
-        errorList.put("directoryExists","005 Ya existe el subdirectorio o el archivo "); 
-        errorList.put("noMemory","006 Memoria insuficiente, disponible: ");
-        errorList.put("sintaxis","007 La sintaxis del comando no es correcta.");
-        errorList.put("capacity","008 Capacidad de creación de directorios al máximo.");
-        errorList.put("sameNameAsParent","009 El nombre del directorio coincide con el directorio que lo contiene.");
-        errorList.put("noRouteFound","010 El sistema no puede encontrar la ruta especificada: ");
-        errorList.put("isFile","011 No se puede accesar archivos, sólo directorios.");
-        errorList.put("noEmpty","012 El directorio no está vacío.");
-        errorList.put("noValid","013 Identificador no válido.");
-        errorList.put("space","014 Nombre de carpeta no puede tener espacios en blanco.");
+        errorList.put("errorNameDir","001 El nombre del directorio no es válido: ");
+        errorList.put("errorNameFile","002 El nombre del archivo no es válido: ");
+        errorList.put("lengthDir","003 El nombre del directorio permite como máximo un largo de 8 caracteres.");
+        errorList.put("lengthFile","004 El nombre del archivo permite como máximo un largo de 8 caracteres.");
+        errorList.put("noCommand","005 no se reconoce como un comando interno o externo.");
+        errorList.put("singleCommand","006 El comando no utiliza parámetros.");
+        errorList.put("directoryExists","007 Ya existe el subdirectorio o el archivo "); 
+        errorList.put("noMemory","008 Memoria insuficiente, disponible: ");
+        errorList.put("sintaxis","009 La sintaxis del comando no es correcta.");
+        errorList.put("capacity","010 Capacidad de creación de directorios al máximo.");
+        errorList.put("sameNameAsParent","011 El nombre del directorio coincide con el directorio que lo contiene.");
+        errorList.put("noRouteFound","012 El sistema no puede encontrar la ruta especificada: ");
+        errorList.put("isFile","013 es un archivo, no se puede accesar mediante el comando CD.");
+        errorList.put("noEmpty","014 El directorio no está vacío.");
+        errorList.put("noValid","015 Identificador no válido.");
+        errorList.put("space","016 Nombre de carpeta no puede tener espacios en blanco.");
+        errorList.put("notForFiles","017 es un archivo, no se puede eliminar mediante el comando RD.");
+        errorList.put("notForDir","018 es un directorio, no se puede eliminar mediante el comando DEL.");
+        errorList.put("isDir","019 es un directorio, no se puede accesar mediante el comando TYPE.");
+        errorList.put("spaceFile","020 Nombre del archivo no puede tener espacios en blanco.");
+        errorList.put("childNoExists","021 No existe el subdirectorio o el archivo ");
         
     }
     

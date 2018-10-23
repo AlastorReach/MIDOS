@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author alast
+ * @author Josué Mora González
  */
 public final class Date {
     private Date(){

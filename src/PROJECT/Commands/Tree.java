@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package PROJECT.Commands;
 
 import PROJECT.Carpeta;
@@ -10,12 +5,13 @@ import PROJECT.Singleton;
 
 /**
  *
- * @author alast
+ * @author Josué Mora González
  */
 public final class Tree {
     private Tree(){
         
     }
+    //muestra el árbol de carpetas
     public static void Tree(Carpeta carpetaActual, String tab) {
         
         System.out.println("La carpeta actual es " + carpetaActual);
@@ -23,22 +19,31 @@ public final class Tree {
 
         
     }
+    //función recursiva que imprime las carpetas en forma de árbol
     public static void imprimirRecursion(Carpeta c, String tab){
         try{
             boolean isRoot = true;
             if(!c.getNombre().equalsIgnoreCase("MIDOS")){
-                System.out.println(tab + "├───" + c.getNombre());
+                System.out.println(tab + Singleton.getInstance().helper.getAscii() + "───────" + c.getNombre());
                 isRoot = false;
             }
-            
-            for(int i = 0; i < c.getCantidadCarpetas(); i++){
-                if(c.getCantidadCarpetas() != 0){
-                    if(!isRoot){
-                    tab +="\t";
-                    }
-                    imprimirRecursion((Carpeta)c.getHijoInterno(i), tab);
+            //si tiene hijos se agrega un nuevo tab
+            if(c.getCantidadCarpetas() != 0){
+                if(!isRoot){
+                    tab +="│\t";
+                }
+                
+                for(int i = 0; i < c.getCantidadCarpetas(); i++){
+                        if(i == c.getCantidadCarpetas() -1){
+                            Singleton.getInstance().helper.setAscii("└");
+                        }else {
+                            Singleton.getInstance().helper.setAscii("├");
+                        }
+                        imprimirRecursion((Carpeta)c.getHijoInterno(i), tab);
                 }
             }
+                
+            // al salir de los hijos y entrar a un hermano se elimina un tab
             tab = tab.replace("\t", "");
             Singleton.getInstance().helper.SetTab(tab);
         }

@@ -15,10 +15,13 @@ public class Singleton {
    public ErrorList error;
    public Helpers helper;
    public Tokens tokens;
+   public Production prod;
    protected Singleton() {
+       instance = this;
        error = new ErrorList();
        helper = new Helpers();
        tokens = new Tokens();
+       prod = new Production();
    }
    
    public static Singleton getInstance() {

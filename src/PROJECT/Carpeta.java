@@ -6,10 +6,11 @@ import java.util.List;
 
 /**
  *
- * @author alast
+ * @author Josué Mora González
  */
 public class Carpeta implements Serializable
 {
+
     private String ruta;
     private String nombre;
     private Carpeta padre;
@@ -18,6 +19,9 @@ public class Carpeta implements Serializable
 
     public Carpeta getPadre() {
         return padre;
+    }
+    public List<Object> getHijos() {
+        return hijos;
     }
 
     public void setPadre(Carpeta padre) {
@@ -44,6 +48,9 @@ public class Carpeta implements Serializable
     }
 
     public String getNombre() {
+        if(nombre.equals("MIDOS")){
+            return "M:";
+        }
         return nombre;
     }
 
@@ -55,10 +62,11 @@ public class Carpeta implements Serializable
         return hijos.size();
     }
 
-    public void setCantidadCarpetas(int cantidadHijos) {
+    public void setCantidadCarpetas() {
         this.cantidadHijos = hijos.size();
     }
 
+    //obtiene el hijo de la carpeta segun el índice
     public Object getHijoInterno(int indice) {
        if(hijos.get(indice) instanceof Carpeta){
            return (Carpeta)hijos.get(indice);
@@ -75,11 +83,29 @@ public class Carpeta implements Serializable
             cantidadHijos++;
     }
     
-    public void removeFolder(String nombre) {
+    public void removeOrChangeNameChild(String nombre, String command, String replace) {
             for(int i = 0; i< hijos.size();i++){
                 if(hijos.get(i) instanceof Carpeta){
                     if(((Carpeta)hijos.get(i)).getNombre().equalsIgnoreCase(nombre)){
-                        hijos.remove(i);
+                        switch(command.toUpperCase()){
+                            case "REMOVE":hijos.remove(i);return;
+                            case "RENAME": Carpeta c = (Carpeta)hijos.get(i);
+                            c.setNombre(replace);
+                            hijos.set(i, c);
+                            return;
+                        }
+                        
+                    }
+                }
+                else if(hijos.get(i) instanceof Archivo){
+                    if(((Archivo)hijos.get(i)).getNombre().equalsIgnoreCase(nombre)){
+                        switch(command.toUpperCase()){
+                            case "REMOVE":hijos.remove(i);return;
+                            case "RENAME": Archivo a = (Archivo)hijos.get(i);
+                            a.setNombre(replace);
+                            hijos.set(i, a);
+                            return;
+                        }
                     }
                 }
             }

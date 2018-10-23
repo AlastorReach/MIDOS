@@ -27,8 +27,12 @@ public class Tokens {
         TokensList.add(CD2());
         TokensList.add(CD3());
         TokensList.add(CD4());
+        TokensList.add(COPY());
+        TokensList.add(TYPE());
+        TokensList.add(DEL());
         TokensList.add(CLS());
         TokensList.add(RD());
+        TokensList.add(REN());
         TokensList.add(VER());
         TokensList.add(DIR());
         TokensList.add(DATE());
@@ -231,6 +235,42 @@ public class Tokens {
         t.put("TIPO","ESPECIFICO");
         t.put("SINGULAR",true);
         return t;
+    }
+    private HashMap COPY(){
+        HashMap c = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        c.put("TOKEN","COPY");
+        c.put("ID",17);
+        c.put("TIPO","ESPECIFICO");
+        c.put("SINGULAR",false);
+        return c;
+    }
+    private HashMap TYPE(){
+        HashMap t = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        t.put("TOKEN","TYPE");
+        t.put("ID",18);
+        t.put("TIPO","ESPECIFICO");
+        t.put("SINGULAR",false);
+        return t;
+    }
+     private HashMap DEL(){
+        HashMap d = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        d.put("TOKEN","DEL");
+        d.put("ID",19);
+        d.put("TIPO","ESPECIFICO");
+        d.put("SINGULAR",false);
+        return d;
+    }
+     private HashMap REN(){
+        HashMap r = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        r.put("TOKEN","REN");
+        r.put("ID",19);
+        r.put("TIPO","ESPECIFICO");
+        r.put("SINGULAR",false);
+        return r;
     }
     /*
     *Devuelve la lista de tokens

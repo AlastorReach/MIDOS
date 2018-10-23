@@ -36,10 +36,22 @@ public class Sintax {
                 default: validParam = false;noValidCommand = input.get(contador);  contador++;  break;
             }
         }while(contador < input.size());
-
+       /* String wholeCommand = "";
+        for(int i = 0; i < commands.size(); i++){
+            if(i != commands.size() -1){
+                wholeCommand += commands.get(i) + " ";
+            }
+            else{
+                wholeCommand += commands.get(i);
+            }
+        }*/
+       //boolean validate = Singleton.getInstance().prod.validate(wholeCommand);
         //luego envia las palabras a este método mendiante una Lista
         //Minimo debe llegar una letra, sino no deberia haber entrado aquí
+        //envia todos los datos, pero tiene dos parametros que indica si alguno de los datos no es correcto
         Singleton.getInstance().helper.verifying(commands, validParam, noValidCommand);
+
+
 
     }
 }
