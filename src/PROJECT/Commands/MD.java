@@ -31,6 +31,7 @@ public final class MD {
             Singleton.getInstance().error.printError("sintaxis", "" ,0);
             return;
         }
+        
         //si el nombre no es válido
         if(!DirectoryNameIsValid(parts.get(1),"DIR")){
             return;

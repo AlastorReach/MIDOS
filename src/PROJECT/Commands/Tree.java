@@ -39,7 +39,16 @@ public final class Tree {
                         }else {
                             Singleton.getInstance().helper.setAscii("├");
                         }
-                        imprimirRecursion((Carpeta)c.getHijoInterno(i), tab);
+                        Carpeta c2 = null;
+                        do{
+                            if(c.getHijoInterno(i) instanceof Carpeta){
+                                c2 =  (Carpeta)c.getHijoInterno(i);
+                            imprimirRecursion((Carpeta)c.getHijoInterno(i), tab);
+                            }
+                            else{
+                                i++;
+                            }
+                        }while(c2 instanceof Carpeta == false);
                 }
             }
                 

@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package PROJECT.Commands;
 
 import PROJECT.Arbol;
-import PROJECT.Archivo;
 import PROJECT.Singleton;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,6 +38,11 @@ public final class Copy {
          if(parts.size() == 3){
             if(parts.get(1).toUpperCase().equals("CON")){
                 if(MD.DirectoryNameIsValid(parts.get(2), "FIL")){
+                    
+                //si el archivo tiene el mismo nombre de la carpeta padre
+                if(Singleton.getInstance().helper.ChildHasSameNameAsParent(parts, 2)){
+                    return;
+                }
                     //si ya existe la carpeta en el mismo nivel del árbol
                     if(Singleton.getInstance().helper.siblingExists(parts, 2)){
                         Singleton.getInstance().error.printError("directoryExists", Arbol.getRutaActual()

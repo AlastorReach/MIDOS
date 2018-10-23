@@ -36,6 +36,7 @@ public final class CD {
         }
         /********************************FIN ERRORES**************************************************/
        
+        /************************************************************************************/
         //si el comando es CD .. o CD /  o CD \ o CD NOMBRECARPETA
         if(parts.size() == 2){
             if(parts.get(1).equals("..")){
@@ -50,7 +51,9 @@ public final class CD {
             goForwardOneLevel(parts,actualPrompt, prompt, SP, GP);
             return;
         }
+        /************************************************************************************/
         
+        /************************************************************************************/
         //Si el comando es CD/ o CD\ o CD..
         if(parts.size() == 1){
             if(parts.get(0).equalsIgnoreCase("cd/") || parts.get(0).equalsIgnoreCase("cd\\") ){
@@ -65,6 +68,7 @@ public final class CD {
 
         
     }
+    /************************************************************************************/
     
     //función que actualiza el prompt del helper (por referencia) mediante set
     private static void SetPrompt(String actualPrompt, String prompt, String SP, String GP){

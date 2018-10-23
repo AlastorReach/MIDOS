@@ -136,7 +136,7 @@ public class Helpers {
     public void verifying( List<String> parts, boolean isValidParam, String noValidCommand) throws IOException{
         if(parts.size() > 0){
             switch(parts.get(0).toUpperCase()){
-                case "CLS":     CLS.clrscr();break;
+                case "CLS":     CLS.clrscr(parts, noValidCommand);break;
                 case "REN":     Ren.rename(parts, isValidParam, noValidCommand);break;
                 case "TYPE":    Type.PrintContent(parts, isValidParam, noValidCommand);break;
                 case "DEL":     Del.borrarArchivo(parts);break;
@@ -343,21 +343,48 @@ public class Helpers {
     }
      
      public boolean ChildHasSameNameAsParent(List<String> parts, int indice){
-            //si la carpeta tiene el mismo nombre de la carpeta padre
-        if(parts.get(indice).equalsIgnoreCase(Singleton.getInstance().helper.getCarpetaActual().getNombre())){
+        if(carpetaActual.getNombre().equalsIgnoreCase("M:")){
+            if(parts.get(indice).equalsIgnoreCase("MIDOS")){
+                Singleton.getInstance().error.printError("sameNameAsParent", "", 0);
+                return true;
+            }
+        }
+        //si la carpeta tiene el mismo nombre de la carpeta padre
+        if(parts.get(indice).equalsIgnoreCase(carpetaActual.getNombre())){
             Singleton.getInstance().error.printError("sameNameAsParent", "", 0);
             return true;
         }
          return false;
      }
      
+     public boolean parentWillHaveSameNameAsChildren(List<String> parts, int indice){
+         Carpeta hijo = null;
+            for(int i = 0; i < carpetaActual.getCantidadCarpetas(); i++){
+                if(parts.get(1).equalsIgnoreCase(carpetaActual.getHijoInterno(i).toString())){
+                    if(carpetaActual.getHijoInterno(i) instanceof Carpeta){
+                        hijo = (Carpeta)carpetaActual.getHijoInterno(i);
+                    }
+                }
+            }
+            if(hijo != null){
+                for(int i = 0; i < hijo.getCantidadCarpetas(); i++){
+                    Object o = hijo.getHijoInterno(i);
+                    if(parts.get(indice).equalsIgnoreCase(o.toString()))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+     }
+     
      public boolean siblingExists(List<String>parts, int indice){
-          for(int i = 0; i < carpetaActual.getCantidadCarpetas(); i++){
+        for(int i = 0; i < carpetaActual.getCantidadCarpetas(); i++){
             if(parts.get(indice).equalsIgnoreCase(carpetaActual.getHijoInterno(i).toString())){
                 return true;
             }
         }
-          return false;
+        return false;
      }
      
      public void createNewDir(List<String> parts, int indice){

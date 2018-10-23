@@ -7,7 +7,6 @@ package PROJECT.Commands;
 
 import PROJECT.Arbol;
 import PROJECT.Carpeta;
-import static PROJECT.Commands.MD.DirectoryNameIsValid;
 import PROJECT.Singleton;
 import java.util.List;
 
@@ -44,6 +43,12 @@ public final class Ren {
         if(Singleton.getInstance().helper.siblingExists(parts, 2)){
             Singleton.getInstance().error.printError("directoryExists", Arbol.getRutaActual()
                         + "\\" + parts.get(2), 0);
+            return;
+        }
+        //si la carpeta que se quiere renombrar va entrar en conflicto con ->
+        //el mismo nombre de la carpeta o archivo de un hijo
+        if(Singleton.getInstance().helper.parentWillHaveSameNameAsChildren(parts, 2)){
+            Singleton.getInstance().error.printError("sameNameAsChild", "", 0);
             return;
         }
              //busca y obtiene la carpeta para cambiarle el nombre

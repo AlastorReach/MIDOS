@@ -5,7 +5,9 @@
  */
 package PROJECT.Commands;
 
+import PROJECT.Singleton;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -18,8 +20,12 @@ public final class CLS {
     /*
     *Limpia la consola en cmd llamando al mismo cmd: cls
     */
-    public static void clrscr(){
+    public static void clrscr(List<String>parts, String noValidCommand){
         try {
+            if(parts.size() > 1 || !noValidCommand.isEmpty()){
+                Singleton.getInstance().error.printError("singleCommand", "", 0);
+                return;
+            }
             if (System.getProperty("os.name").contains("Windows"))
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             else
