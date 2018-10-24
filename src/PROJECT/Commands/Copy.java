@@ -38,11 +38,15 @@ public final class Copy {
          if(parts.size() == 3){
             if(parts.get(1).toUpperCase().equals("CON")){
                 if(MD.DirectoryNameIsValid(parts.get(2), "FIL")){
-                    
-                //si el archivo tiene el mismo nombre de la carpeta padre
-                if(Singleton.getInstance().helper.ChildHasSameNameAsParent(parts, 2)){
+                //si ya hay 8 hijos del directorio
+                if(Singleton.getInstance().helper.getCarpetaActual().getCantidadCarpetas()>=8){
+                    Singleton.getInstance().error.printError("capacity", "", 0);
                     return;
                 }
+                /*//si el archivo tiene el mismo nombre de la carpeta padre
+                if(Singleton.getInstance().helper.ChildHasSameNameAsParent(parts, 2)){
+                    return;
+                }*/
                     //si ya existe la carpeta en el mismo nivel del árbol
                     if(Singleton.getInstance().helper.siblingExists(parts, 2)){
                         Singleton.getInstance().error.printError("directoryExists", Arbol.getRutaActual()

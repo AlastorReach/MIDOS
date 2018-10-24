@@ -41,10 +41,10 @@ public final class MD {
             Singleton.getInstance().error.printError("capacity", "", 0);
             return;
         }
-        //si la carpeta tiene el mismo nombre de la carpeta padre
+        /*si la carpeta tiene el mismo nombre de la carpeta padre
         if(Singleton.getInstance().helper.ChildHasSameNameAsParent(parts, 1)){
             return;
-        }
+        }*/
         //si ya existe la carpeta en el mismo nivel del árbol
         if(Singleton.getInstance().helper.siblingExists(parts, 1)){
             Singleton.getInstance().error.printError("directoryExists", Arbol.getRutaActual()

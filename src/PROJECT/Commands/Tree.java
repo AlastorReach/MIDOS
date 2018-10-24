@@ -1,5 +1,6 @@
 package PROJECT.Commands;
 
+import PROJECT.Arbol;
 import PROJECT.Carpeta;
 import PROJECT.Singleton;
 
@@ -13,9 +14,14 @@ public final class Tree {
     }
     //muestra el árbol de carpetas
     public static void Tree(Carpeta carpetaActual, String tab) {
-        
-        System.out.println("La carpeta actual es " + carpetaActual);
-        imprimirRecursion(carpetaActual, tab);
+        Carpeta carpetaRaiz = Arbol.GetFirstLevel();
+        System.out.println("Listado de rutas de carpetas para el volumen " + carpetaRaiz.getNombre());
+        System.out.println("El número de serie del volumen es : JosueMoraGonzalez-113260029");
+        if(carpetaRaiz.getCantidadCarpetas() == 0){
+            Singleton.getInstance().error.printError("noDirectories", "", 0);
+            return;
+        }
+        imprimirRecursion(carpetaRaiz, tab);
 
         
     }
@@ -28,7 +34,7 @@ public final class Tree {
             if(!c.getNombre().equalsIgnoreCase("MIDOS")){
                 if(c instanceof Carpeta){
                     System.out.println(tab + 
-                            Singleton.getInstance().helper.getAscii() + "───────" + c.getNombre());
+                            Singleton.getInstance().helper.getAscii() + "───────" + c);
                     isRoot = false;
                 }
             }

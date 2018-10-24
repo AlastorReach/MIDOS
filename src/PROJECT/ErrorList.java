@@ -31,7 +31,7 @@ public class ErrorList{
         errorList.put("directoryExists","007 Ya existe el subdirectorio o el archivo "); 
         errorList.put("noMemory","008 Memoria insuficiente, disponible: ");
         errorList.put("sintaxis","009 La sintaxis del comando no es correcta.");
-        errorList.put("capacity","010 Capacidad de creación de directorios al máximo.");
+        errorList.put("capacity","010 Capacidad de creación de subdirectorios al máximo.");
         errorList.put("sameNameAsParent","011 El nombre del directorio o archivo coincide con el directorio que lo contiene.");
         errorList.put("noRouteFound","012 El sistema no puede encontrar la ruta especificada: ");
         errorList.put("isFile","013 es un archivo, no se puede accesar mediante el comando CD.");
@@ -44,6 +44,7 @@ public class ErrorList{
         errorList.put("spaceFile","020 Nombre del archivo no puede tener espacios en blanco.");
         errorList.put("childNoExists","021 No existe el subdirectorio o el archivo ");
         errorList.put("sameNameAsChild","021 El nuevo nombre a utilizar entra en conflicto con el nombre de un hijo");
+        errorList.put("noDirectories","022 No existe ninguna subcarpeta");
         
     }
     

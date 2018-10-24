@@ -56,9 +56,9 @@ public final class Ren {
         }
         if(parts.size() == 3){
             //si la carpeta tiene el mismo nombre de la carpeta padre
-        if(Singleton.getInstance().helper.ChildHasSameNameAsParent(parts, 2)){
+        /*if(Singleton.getInstance().helper.ChildHasSameNameAsParent(parts, 2)){
             return;
-        }
+        }*/
         //si ya existe la carpeta en el mismo nivel del árbol
         if(Singleton.getInstance().helper.siblingExists(parts, 2)){
             Singleton.getInstance().error.printError("directoryExists", Arbol.getRutaActual()
@@ -67,10 +67,10 @@ public final class Ren {
         }
         //si la carpeta que se quiere renombrar va entrar en conflicto con ->
         //el mismo nombre de la carpeta o archivo de un hijo
-        if(Singleton.getInstance().helper.parentWillHaveSameNameAsChildren(parts, 2)){
+        /*if(Singleton.getInstance().helper.parentWillHaveSameNameAsChildren(parts, 2)){
             Singleton.getInstance().error.printError("sameNameAsChild", "", 0);
             return;
-        }
+        }*/
              //busca y obtiene la carpeta para cambiarle el nombre
             Object c = Arbol.getCarpetaActual(Singleton.getInstance().helper.getCarpetaActual().getNombre(), parts.get(1));
             //si no se encontró la carpeta
