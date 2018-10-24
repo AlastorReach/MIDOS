@@ -22,39 +22,45 @@ public final class Tree {
     //función recursiva que imprime las carpetas en forma de árbol
     public static void imprimirRecursion(Carpeta c, String tab){
         try{
+            String vertical = "";
             boolean isRoot = true;
+            int contador = 1;
             if(!c.getNombre().equalsIgnoreCase("MIDOS")){
-                System.out.println(tab + Singleton.getInstance().helper.getAscii() + "───────" + c.getNombre());
-                isRoot = false;
+                if(c instanceof Carpeta){
+                    System.out.println(tab + 
+                            Singleton.getInstance().helper.getAscii() + "───────" + c.getNombre());
+                    isRoot = false;
+                }
             }
             //si tiene hijos se agrega un nuevo tab
-            if(c.getCantidadCarpetas() != 0){
+            if(c.getCantidadCarpetas2() > 0){
                 if(!isRoot){
-                    tab +="│\t";
+                    if(Singleton.getInstance().helper.getContador() > 1){
+                        vertical = "│";
+                        Singleton.getInstance().helper.setVertical(vertical);
+                    }
+                    tab += vertical + "\t";
                 }
-                
-                for(int i = 0; i < c.getCantidadCarpetas(); i++){
-                        if(i == c.getCantidadCarpetas() -1){
+                for(int i = 0; i < c.getCantidadCarpetas2(); i++){
+                        contador ++;
+                        Singleton.getInstance().helper.setContador(contador);
+                        if(i == c.getCantidadCarpetas2() - 1){
                             Singleton.getInstance().helper.setAscii("└");
                         }else {
                             Singleton.getInstance().helper.setAscii("├");
                         }
-                        Carpeta c2 = null;
-                        do{
-                            if(c.getHijoInterno(i) instanceof Carpeta){
-                                c2 =  (Carpeta)c.getHijoInterno(i);
-                            imprimirRecursion((Carpeta)c.getHijoInterno(i), tab);
-                            }
-                            else{
-                                i++;
-                            }
-                        }while(c2 instanceof Carpeta == false);
+                        if(c instanceof Carpeta){
+                            imprimirRecursion((Carpeta)c.getCarpetaInterna(i), tab);
+                        }
                 }
             }
-                
+                vertical = "";
+                Singleton.getInstance().helper.setVertical(vertical);
             // al salir de los hijos y entrar a un hermano se elimina un tab
-            tab = tab.replace("\t", "");
+            tab = tab.replace(vertical + "\t", "");
             Singleton.getInstance().helper.SetTab(tab);
+            Singleton.getInstance().helper.setContador(0);
+            
         }
         catch(Exception e){
             System.err.println(e.getMessage());

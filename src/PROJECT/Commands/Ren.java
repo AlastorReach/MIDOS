@@ -20,8 +20,28 @@ public final class Ren {
     }
     public static void rename(List<String> parts,boolean isValidParam, String noValidCommand){
         
-        if(parts.size() != 3){
+        // si viene con espacios
+        //ej. ren progra hola mundo
+        //     1    2      3    4
+        //y todos los nombres son válidos
+        if(parts.size() > 3){
+            Singleton.getInstance().error.printError("space", "" ,0);
+            return;
+        }
+        // si es diferente de 3 y no posee parametros no validos
+        //ej. ren hola
+        if(parts.size() != 3 && isValidParam && noValidCommand.isEmpty()){
             Singleton.getInstance().error.printError("sintaxis", "" ,0);
+            return;
+        }
+        //si es diferente de 3 y posee parametros no validos
+        // ej. ren hola $mundo ($mundo se desecha) y se agrega a noValidCommand
+        if(parts.size() != 3 && !isValidParam && !noValidCommand.isEmpty()){
+            Singleton.getInstance().error.printError("errorNameDir", noValidCommand ,0);
+            return;
+        }
+        if(!isValidParam && !noValidCommand.isEmpty()){
+            Singleton.getInstance().error.printError(noValidCommand, noValidCommand, 0);
             return;
         }
         //si no existe la carpeta o archivo a la que se le va a cambiar el nombre

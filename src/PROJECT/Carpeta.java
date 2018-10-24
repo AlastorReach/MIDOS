@@ -1,5 +1,6 @@
 package PROJECT;
 
+import PROJECT.Commands.Dir;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Carpeta implements Serializable
     private String ruta;
     private String nombre;
     private Carpeta padre;
+    private List<Carpeta> carpetas = new LinkedList();
     private int cantidadHijos;
     private List<Object> hijos = new LinkedList();
 
@@ -65,6 +67,10 @@ public class Carpeta implements Serializable
     public void setCantidadCarpetas() {
         this.cantidadHijos = hijos.size();
     }
+    
+    public int getCantidadCarpetas2() {
+        return carpetas.size();
+    }
 
     //obtiene el hijo de la carpeta segun el índice
     public Object getHijoInterno(int indice) {
@@ -77,10 +83,17 @@ public class Carpeta implements Serializable
        System.err.println("El sistema no puede encontrar la ruta especificada");
         return null;
     }
+    public Carpeta getCarpetaInterna(int indice){
+        return carpetas.get(indice);
+    }
 
     public void setHijoInterno(Object carpetaInterna) {
             hijos.add(carpetaInterna);
             cantidadHijos++;
+            if(carpetaInterna instanceof Carpeta){
+                carpetas.add((Carpeta)carpetaInterna);
+            }
+            Singleton.getInstance().helper.ordenamientoInsercion(carpetas);
     }
     
     public void removeOrChangeNameChild(String nombre, String command, String replace) {
@@ -88,7 +101,7 @@ public class Carpeta implements Serializable
                 if(hijos.get(i) instanceof Carpeta){
                     if(((Carpeta)hijos.get(i)).getNombre().equalsIgnoreCase(nombre)){
                         switch(command.toUpperCase()){
-                            case "REMOVE":hijos.remove(i);return;
+                            case "REMOVE": deleteFromCarpetas(i);hijos.remove(i);return;
                             case "RENAME": Carpeta c = (Carpeta)hijos.get(i);
                             c.setNombre(replace);
                             hijos.set(i, c);
@@ -109,5 +122,14 @@ public class Carpeta implements Serializable
                     }
                 }
             }
+    }
+    
+    void deleteFromCarpetas(int indice){
+        Carpeta c = (Carpeta)hijos.get(indice);
+        for(int i = 0; i < carpetas.size(); i++){
+            if(carpetas.get(i).getNombre().equalsIgnoreCase(c.getNombre())){
+                carpetas.remove(i);
+            }
+        }
     }
 }

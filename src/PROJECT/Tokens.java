@@ -44,6 +44,8 @@ public class Tokens {
         TokensList.add(SPACE());
         TokensList.add(IDENTIFICADOR());
         TokensList.add(PROMPTP());
+        TokensList.add(PROMPTPG());
+        TokensList.add(PROMPTGP());
         TokensList.add(POINTS());
         TokensList.add(SLASH());
         TokensList.add(BACKSLASH());
@@ -271,6 +273,24 @@ public class Tokens {
         r.put("TIPO","ESPECIFICO");
         r.put("SINGULAR",false);
         return r;
+    }
+     private HashMap PROMPTPG(){
+        HashMap p = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        p.put("TOKEN","\\$P\\$G");
+        p.put("ID",20);
+        p.put("TIPO","PROMPTPARAM");
+        p.put("SINGULAR",true);
+        return p;
+    }
+     private HashMap PROMPTGP(){
+        HashMap p = new HashMap(); 
+        //LinkedList Cls = new LinkedList();
+        p.put("TOKEN","\\$G\\$P");
+        p.put("ID",20);
+        p.put("TIPO","PROMPTPARAM");
+        p.put("SINGULAR",true);
+        return p;
     }
     /*
     *Devuelve la lista de tokens

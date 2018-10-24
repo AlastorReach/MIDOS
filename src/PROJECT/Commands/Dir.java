@@ -5,12 +5,9 @@
  */
 package PROJECT.Commands;
 
-import PROJECT.Arbol;
 import PROJECT.Archivo;
 import PROJECT.Carpeta;
 import PROJECT.Singleton;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,7 +49,7 @@ public final class Dir {
         System.out.println(Singleton.getInstance().helper.getFreeMemory() + " bytes libres.");
     }
     
-    static void ordenamientoInsercion(List<Object> lista) {
+    public static void ordenamientoInsercion(List<Object> lista) {
         int in;
 
         for (int i = 1 ; i < lista.size() ; i++) {

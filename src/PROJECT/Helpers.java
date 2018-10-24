@@ -47,6 +47,15 @@ public class Helpers {
     public void SetTab(String t){
         tab = t;
     }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+    private int contador = 1;
     private static String ascii = "├";
     public String getAscii(){
         return ascii;
@@ -399,6 +408,22 @@ public class Helpers {
                                 + "\\",parts.get(2),Singleton.getInstance().helper.getCarpetaActual(),lines );
         carpetaActual.setHijoInterno(archivo);
         carpetaActual.setCantidadCarpetas();
+    }
+    
+    public void ordenamientoInsercion(List<Carpeta> lista) {
+        int in;
+
+        for (int i = 1 ; i < lista.size() ; i++) {
+            Carpeta aux = lista.get(i);
+            in = i;    //inicia el desplazamiento en i
+            
+            while (in > 0 && lista.get(in - 1).toString().toUpperCase().compareTo(aux.toString().toUpperCase()) > 0) {
+                lista.set(in, lista.get(in - 1));
+                //desplaza el elemento hacia la derecha
+                --in;
+            }
+            lista.set(in, aux);
+        }
     }
     
 }
