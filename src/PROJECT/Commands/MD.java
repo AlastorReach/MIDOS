@@ -53,7 +53,7 @@ public final class MD {
         }
         //si no hay suficiente memoria disponible
         if(!Singleton.getInstance().helper.removeMemory(Singleton.getInstance().helper.getFreeMemory(), "DIR")){
-            Singleton.getInstance().error.printError("noMemory",Integer.toString(Singleton.getInstance().helper.getFreeMemory()), 1);
+            Singleton.getInstance().error.printError("noMemory",Integer.toString(Singleton.getInstance().helper.getFreeMemory()), 0);
             return;
         }
         //si todo esta bien guarda la carpeta

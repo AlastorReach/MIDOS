@@ -127,9 +127,13 @@ public class Helpers {
             while(true){
                 System.out.print(prompt);
                 input = br.readLine();
-                parts = new LinkedList<>(Arrays.asList(input.split(" ")));
+                if(input != null){
+                    if(!input.isEmpty()){
+                        parts = new LinkedList<>(Arrays.asList(input.split(" ")));
+                    }
+                }
                 //trimParts(parts);
-                if(!"".equals(input)){
+                if(!"".equals(input) && input != null){
                     sintax.analizador(parts);
                 }
             }
@@ -148,7 +152,7 @@ public class Helpers {
                 case "CLS":     CLS.clrscr(parts, noValidCommand);break;
                 case "REN":     Ren.rename(parts, isValidParam, noValidCommand);break;
                 case "TYPE":    Type.PrintContent(parts, isValidParam, noValidCommand);break;
-                case "DEL":     Del.borrarArchivo(parts);break;
+                case "DEL":     Del.borrarArchivo(parts,isValidParam, noValidCommand );break;
                 case "EXIT":    Exit.exit(br,input);break;
                 case "VER":     Ver.showVersion(parts, freeMemory);break;
                 case "DATE":    Date.showDate(parts, noValidCommand);break;

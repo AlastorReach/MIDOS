@@ -24,6 +24,9 @@ public final class Exit {
      public static boolean exit(BufferedReader br, String input) throws IOException{
         System.out.println("¿Está seguro de salir de MIDOS?");
         input = br.readLine();
+        if(input == null){
+            input = "default";
+        }
         switch(input.toLowerCase()){
             case "s":
             case "si": Singleton.getInstance().helper.SaveAndExit(); return false;

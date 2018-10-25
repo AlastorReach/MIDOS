@@ -20,7 +20,12 @@ public final class Type {
     }
     
     public static void PrintContent(List<String> parts, boolean isValidParam, String noValidCommand){
-       if(!isValidParam){
+       // si solo se digita type
+        if(parts.size() == 1 && isValidParam){
+            Singleton.getInstance().error.printError("sintaxis", "" ,0);
+            return;
+        }
+        if(!isValidParam){
            MD.DirectoryNameIsValid(noValidCommand, "FIL");
             return;
        }

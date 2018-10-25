@@ -17,10 +17,11 @@ public final class Tree {
         Carpeta carpetaRaiz = Arbol.GetFirstLevel();
         System.out.println("Listado de rutas de carpetas para el volumen " + carpetaRaiz.getNombre());
         System.out.println("El número de serie del volumen es : JosueMoraGonzalez-113260029");
-        if(carpetaRaiz.getCantidadCarpetas() == 0){
+        if(carpetaRaiz.getCantidadCarpetas2() == 0){
             Singleton.getInstance().error.printError("noDirectories", "", 0);
             return;
         }
+        System.out.println(carpetaRaiz.getNombre() + ".");
         imprimirRecursion(carpetaRaiz, tab);
 
         
@@ -31,7 +32,7 @@ public final class Tree {
             String vertical = "";
             boolean isRoot = true;
             int contador = 1;
-            if(!c.getNombre().equalsIgnoreCase("MIDOS")){
+            if(!c.getNombre().equalsIgnoreCase("M:")){
                 if(c instanceof Carpeta){
                     System.out.println(tab + 
                             Singleton.getInstance().helper.getAscii() + "───────" + c);

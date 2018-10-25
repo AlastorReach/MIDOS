@@ -58,6 +58,9 @@ public class ErrorList{
         System.err.println("ERROR: " + printErrorNumber(error) + printErrorBody(error) );
         }
         else{
+            if(error.equalsIgnoreCase("noMemory")){
+                data = data + " K";
+            }
             switch(before){
                 case 0: System.err.println("ERROR: " + printErrorNumber(error) + printErrorBody(error) + data);break;
                 default: System.err.println("ERROR: " + printErrorNumber(error) + " " + "\""+ data +"\"" + printErrorBody(error));
