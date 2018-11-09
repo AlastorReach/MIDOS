@@ -56,7 +56,7 @@ public final class Copy {
                     //si no hay suficiente memoria disponible
                     if(!Singleton.getInstance().helper.removeMemory(Singleton.getInstance().helper.getFreeMemory(), "FILE")){
                         Singleton.getInstance().error.printError("noMemory",Integer.toString(Singleton.getInstance().helper.
-                            getFreeMemory()), 1);
+                            getFreeMemory()), 0);
                         return;
                     }
                     
@@ -68,20 +68,28 @@ public final class Copy {
                     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                     List<String> lines = new ArrayList<>();
                     String input = "";
-                    char c = (char)26;
+                    String eof = "^Z";
+                    String lastRowWithowEOF = "";
                     try{
                         do{      
                            input = br.readLine();
                            lines.add(input);
 
-                        }while(!input.endsWith(String.valueOf((char)0x1a)));
+                        }while(!input.endsWith(String.valueOf((char)0x1a)) && !input.toUpperCase().endsWith(eof));
                         }
                         catch(NullPointerException e){
                             lines.remove(lines.size()-1);
                         }
                         if(!lines.isEmpty()){
-                            String tt = lines.get(lines.size() -1).replace(String.valueOf((char)0x1a),"");
-                            lines.set(lines.size() -1, tt);
+                            if(lines.get(lines.size() -1).substring(lines.get(lines.size() -1).length()-1)
+                                    .equalsIgnoreCase("Z")){
+                                lastRowWithowEOF = lines.get(lines.size() -1).substring(0, lines.get(lines.size() -1).length() -2);
+                            }
+                            else{
+                            //String tt = lines.get(lines.size() -1).replace(String.valueOf((char)0x1a),"");
+                            lastRowWithowEOF = lines.get(lines.size() -1).substring(0, lines.get(lines.size() -1).length() -1);
+                            }
+                            lines.set(lines.size() -1, lastRowWithowEOF); 
                         }
                         Singleton.getInstance().helper.createNewFile(parts, 2, lines);
                 }

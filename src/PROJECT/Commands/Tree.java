@@ -43,7 +43,18 @@ public final class Tree {
             if(c.getCantidadCarpetas2() > 0){
                 if(!isRoot){
                     if(Singleton.getInstance().helper.getContador() > 1){
+                        //si la carpeta padre tiene hijos y el hijo que se está recorriendo no es el último
+                        //se agrega vertical
+                        if(c.getPadre().getCantidadCarpetas2() > 0 && c != 
+                                c.getPadre().getCarpetaInterna(c.getPadre().getCantidadCarpetas2()-1)){
                         vertical = "│";
+                        Singleton.getInstance().helper.setVertical(vertical);
+                        }
+                        //si no vertical es vacío
+                        else{
+                           vertical = ""; 
+                           Singleton.getInstance().helper.setVertical(vertical);
+                        }
                         Singleton.getInstance().helper.setVertical(vertical);
                     }
                     tab += vertical + "\t";
@@ -64,7 +75,7 @@ public final class Tree {
                 vertical = "";
                 Singleton.getInstance().helper.setVertical(vertical);
             // al salir de los hijos y entrar a un hermano se elimina un tab
-            tab = tab.replace(vertical + "\t", "");
+            tab = tab.replace(Singleton.getInstance().helper.getVertical() + "\t", "");
             Singleton.getInstance().helper.SetTab(tab);
             Singleton.getInstance().helper.setContador(0);
             
