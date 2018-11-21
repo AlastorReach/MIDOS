@@ -10,14 +10,16 @@ import java.util.List;
  * @author Josué Mora González
  */
 public final class Time {
-    private Time(){
-        
+
+    private Time() {
+
     }
-     /*
+
+    /*
     *Muestra la hora actual al usuario
-    */
-    public static void showTime(List<String> parts, String noValidCommand){
-        if(parts.size() > 1 || !noValidCommand.isEmpty()){
+     */
+    public static void showTime(List<String> parts, String noValidCommand) {
+        if (parts.size() > 1 || !noValidCommand.isEmpty()) {
             Singleton.getInstance().error.printError("singleCommand", "", 0);
             return;
         }

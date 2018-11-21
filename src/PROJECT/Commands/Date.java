@@ -14,14 +14,16 @@ import java.util.List;
  * @author Josué Mora González
  */
 public final class Date {
-    private Date(){
-        
+
+    private Date() {
+
     }
+
     /*
     *Muestra la fecha actual al usuario
-    */
-    public static void showDate(List<String> parts, String noValidCommand){
-        if(parts.size() > 1 || !noValidCommand.isEmpty()){
+     */
+    public static void showDate(List<String> parts, String noValidCommand) {
+        if (parts.size() > 1 || !noValidCommand.isEmpty()) {
             Singleton.getInstance().error.printError("singleCommand", "", 0);
             return;
         }

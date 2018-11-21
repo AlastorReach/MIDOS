@@ -14,6 +14,7 @@ import java.io.IOException;
 public class Arbol {
     
     private static Carpeta carpetaActual;
+    //muestra la ruta actual en MIDOS
     private static String rutaActual;
 
     public static String getRutaActual() {
@@ -30,6 +31,7 @@ public class Arbol {
     //se ejecuta al iniciar el programa, carga los datos del txt MIDOSTRE en la carpeta
     //si la carpeta luego de eso aun es nula se crea la carpeta raíz MIDOS (M)
     void archivoLeerOCrear() throws IOException, ClassNotFoundException{
+        //lee MIDOSTREE.txt y crea la carpeta actual con el valor de la carpetra guardada.
         carpetaActual = Singleton.getInstance().helper.loadTxtFile2();
         if(carpetaActual == null){
             //si es nulo resetea el valor de la memoria a 256K
